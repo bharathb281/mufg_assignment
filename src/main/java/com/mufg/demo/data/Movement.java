@@ -1,7 +1,5 @@
 package com.mufg.demo.data;
 
-import java.util.HashMap;
-
 import lombok.Getter;
 import lombok.Setter;
 

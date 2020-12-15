@@ -1,7 +1,6 @@
 package com.mufg.demo.data;
 
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
 public enum DirectionEnum {
 
