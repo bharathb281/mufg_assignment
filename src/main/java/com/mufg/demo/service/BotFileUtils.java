@@ -15,7 +15,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mufg.demo.data.OutputResponse;
 
 public class BotFileUtils {
@@ -33,9 +32,9 @@ public class BotFileUtils {
         myWriter.close();
     }
 
-    public static String readFromFile(String filePath) throws JAXBException, PropertyException, IOException {
+    public static OutputResponse readFromFile(String filePath) {
         FileInputStream stream;
-        String response = null;
+        OutputResponse outputResponse = null;
         try {
             // reading file from resource folder
             stream = new FileInputStream(new File("").getAbsolutePath() + filePath);
@@ -43,12 +42,11 @@ public class BotFileUtils {
 
             final JAXBContext context = JAXBContext.newInstance("com.mufg.demo.data");
             final Unmarshaller unmarshaller = context.createUnmarshaller();
-            OutputResponse outputResponse = (OutputResponse) unmarshaller.unmarshal(reader);
-            response = new ObjectMapper().writeValueAsString(outputResponse);
+            outputResponse = (OutputResponse) unmarshaller.unmarshal(reader);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
-        return response;
+        return outputResponse;
     }
 }

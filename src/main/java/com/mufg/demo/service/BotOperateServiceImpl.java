@@ -22,8 +22,8 @@ public class BotOperateServiceImpl implements BotOperateService {
     static final String FILE_LOCATION = "/src/main/resources/output.xml";
 
     @Override
-    public void operate(BotOperateRequestData botOperateRequestData) {
-
+    public OutputResponse operate(BotOperateRequestData botOperateRequestData) {
+        OutputResponse reponse = null;
         // Validating for empty data
         if (ObjectUtils.isEmpty(botOperateRequestData) || ObjectUtils.isEmpty(botOperateRequestData.getPosition())) {
             throw new ProvidedPositionIsNotConsidered("position can not be empty");
@@ -111,7 +111,7 @@ public class BotOperateServiceImpl implements BotOperateService {
 
             // writing as xml
             final com.mufg.demo.data.ObjectFactory factory = new com.mufg.demo.data.ObjectFactory();
-            final OutputResponse reponse = factory.createOutputData();
+            reponse = factory.createOutputData();
 
             final OutputResponse.Position position = factory.createPositionData();
             position.setDirection(currectDirection.name());
@@ -124,18 +124,12 @@ public class BotOperateServiceImpl implements BotOperateService {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return reponse;
     }
 
     @Override
-    public String getLocation() {
-        try {
-            return BotFileUtils.readFromFile(FILE_LOCATION);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return "SomeThing went wrong";
+    public OutputResponse getLocation() {
+        return BotFileUtils.readFromFile(FILE_LOCATION);
     }
 
 }

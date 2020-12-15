@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mufg.demo.data.BotOperateRequestData;
+import com.mufg.demo.data.OutputResponse;
 import com.mufg.demo.service.BotOperateService;
 
 @RestController
@@ -26,14 +27,14 @@ public class ApiResources {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @RequestMapping(path = APIConstants.OPERATE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> operate(@RequestBody BotOperateRequestData requestData) {
-        this.botOperateService.operate(requestData);
-        return new ResponseEntity("Request Accepted", HttpStatus.OK);
+        final OutputResponse outputResponse =  this.botOperateService.operate(requestData);
+        return new ResponseEntity(outputResponse, HttpStatus.OK);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @RequestMapping(path = APIConstants.LOCATION, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getLocation() {
-        final String location = this.botOperateService.getLocation();
+        final OutputResponse location = this.botOperateService.getLocation();
         return new ResponseEntity(location, HttpStatus.OK);
     }
 }
