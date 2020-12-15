@@ -1,6 +1,8 @@
 package com.mufg.demo.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -49,6 +51,8 @@ public class BotOperateServiceImpl implements BotOperateService {
             Movement movement = Movement.getInstance(Integer.valueOf(move.getO()), rotationAngle, rotationValue, moveDirection, moveValue);
             movements.add(movement);
         }
+        
+        Collections.sort(movements);
 
         for (Movement movement : movements) {
 
